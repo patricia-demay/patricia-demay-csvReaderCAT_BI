@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="project.css">
+    <style type="text/css">
+        a{
+        text-decoration: none;
+        color: black;
+    }
+
+        a:visited {
+            color: #0254EB
+        }
+        a.morelink {
+            text-decoration:none;
+            outline: none;
+        }
+        .morecontent span {
+            display: none;
+        }
+
+        label {
+      display: block;
+      padding-left: 15px;
+    }
+    input {
+      padding: 0;
+      margin:0;
+      vertical-align: bottom;
+      position: relative;
+      top: 19px;
+      *overflow: hidden;
+    }
+
+</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container" >
+        <a class="navbar-brand" href="#" style="display: flex;">
+            <img src="../public/Icon.png" width="30" height="30" class="d-inline-block align-top" alt="">
+
+            Filtre : bureau = {{ bureau }}
+            <span id="project" style="display: none"> & projet =  </span> <span id="projectFilter">  </span>
+            <span id="pole" style="display: none"> & pole =  </span> <span id="poleFilter">  </span>
+            <span id="intervenant" style="display: none"> & intervenantCat =  </span> <span id="intervenantFilter">  </span>
+        </a>
+    </div>
+</nav>
+<div class="container">
+    <table class="table table-hover">
+        <thead class="thead-light">
+        <tr>
+
+            <th class="col-4"> 
+             <div class="btn-group" style="width: -webkit-fill-available;text-align: -webkit-right;">
+                    <button type="button" class="btn btn-danger" style="min-inline-size: max-content;">Nom du projet</button>
+                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" style="text-align: -webkit-right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only"></span>
+                    </button>
+                    <div class="dropdown-menu" onchange="selectProjects();">
+                        {% for project in projects %}
+                        <input type="checkbox" class="custom-control-input checkbox" name="project" value="{{ project }}">
+                        <label class="custom-control-label" >{{ project }}</label>
+                        {% endfor %}
+                        <button type="button" class="btn btn-danger" onclick="applyFilterProjet()">
+                            Appliquer
+                        </button>
+                    </div>
+                </div>
+            </th>
+            <th class="col-6">  
+                <div class="btn-group" style="width: -webkit-fill-available;text-align: -webkit-right;">
+                    <button type="button" class="btn btn-danger" style="min-inline-size: max-content;">Activité en cours</button>
+                </div>
+            </th>
+            <th class="col-6">  
+                <div class="btn-group" style="width: -webkit-fill-available;text-align: -webkit-right;">
+                <button type="button" class="btn btn-danger" style="min-inline-size: max-content;">DateprévueLEI = EntréeenINTEX</button>
+                </div>
+            </th>
+            <th class="col-6">
+                <div class="btn-group" style="width: -webkit-fill-available;text-align: -webkit-right;">
+                    <button type="button" class="btn btn-danger" style="min-inline-size: max-content;">Date MEP</button>
+                </div>
+            </th>
+            <th class="col-6">  <div class="btn-group" style="width: -webkit-fill-available;text-align: -webkit-right;">
+                    <button type="button" class="btn btn-danger" style="min-inline-size: max-content;">Intervenants CAT</button>
+                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" style="text-align: -webkit-right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only"></span>
+                    </button>
+                    <div class="dropdown-menu" onchange="selectIntervenant();">
+                        {% for intervenat in intervenats %}
+                            <input type="checkbox" class="custom-control-input checkbox" name="intervenant" value="{{ intervenat }}">
+                            <label class="custom-control-label" >{{ intervenat }}</label>
+                        {% endfor %}
+                        <button type="button" class="btn btn-danger" onclick="applyFilterIntervenant()">
+                            Appliquer
+                        </button>
+
+                    </div>
+                </div>
+            </th>
+            <th class="col-6">  <div class="btn-group" style="width: -webkit-fill-available;text-align: -webkit-right;">
+                    <button type="button" class="btn btn-danger" style="min-inline-size: max-content;">Pôle</button>
+                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" style="text-align: -webkit-right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="sr-only"></span>
+                    </button>
+                    <div class="dropdown-menu" onchange="selectPoles();">
+                        {% for pole in poles %}
+                            <input type="checkbox" class="custom-control-input checkbox" name="pole" value="{{ pole }}">
+                            <label class="custom-control-label poleCheckBox " >{{ pole }}</label>
+                        {% endfor %}
+                        <button type="button" class="btn btn-danger" onclick="applyFilterPoles()">
+                            Appliquer
+                        </button>
+                    </div>
+                </div>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for value in values %}
+        <tr scope="row" class="ligne">
+            <td class="col-2" style="white-space: pre-line">
+               {{ value.Nomduprojet}}
+            </td>
+            <td class="col-4" >
+                <div class="more" style="white-space: pre-line">
+                    {{ value['Activites']}}
+                </div>
+            </td>
+            <td class="col-2" style="white-space: pre-line">
+               {{ value['LEI']}}
+            </td>
+            <td class="col-2" style="white-space: pre-line">
+                {{ value['MEP']}}
+            </td>
+            <td class="col-3" style="white-space: pre-line" >
+               {{ value.IntervenantsCAT}}
+            </td>
+            <td class="col-2" style="white-space: pre-line">
+                {{ value['Pole']}}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <input type="button" class="btn btn-outline-primary" value="marquer une page"
+           onclick="addBookmark('https://buffernow.com','buffer now');"/>
+</div>
+
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    var projects = [];
+    var datePrevues = [];
+    var intervenants = [];
+    var polesParam = [];
+    var globalBureaux = document.getElementsByClassName('ligne');
+
+    function selectProjects() {
+        var ele=document.getElementsByName('project');
+        for(var i=0; i<ele.length; i++){
+            if(ele[i].type === 'checkbox' && ele[i].checked ){
+               if(!projects.includes(ele[i].value) ){
+                   projects.push(ele[i].value);
+               }
+            }else {
+                projects = projects.filter(e=> e !== ele[i].value);
+            }
+        }
+    }
+    function applyFilterProjet(){
+        var collection = globalBureaux;
+        //console.log(collection);
+        //Si pas de filtre
+        if(projects.length === 0){
+            for (let i = 0; i < collection.length; i++) {
+                collection[i].style.display = "revert";
+                document.getElementById("project").style.display = "none";
+                document.getElementById("projectFilter").style.display = "none";
+
+            }
+            return ;
+        }
+        //Pour supprimer un filtre
+        for (let i = 0; i < collection.length; i++) {
+            collection[i].style.display = "revert";
+            document.getElementById("project").style.display = "none";
+            document.getElementById("projectFilter").style.display = "none";
+
+        }
+        //Appliquer le filtre
+        for (let i = 0; i < collection.length; i++) {
+            if(!projects.includes(collection[i].children[0].innerText)){
+                collection[i].style.display = "none";
+            }else {
+                collection[i].style.display = "revert";
+            }
+        }
+        document.getElementById("project").style.display = "revert";
+        document.getElementById("projectFilter").style.display = "revert";
+        var url = "/bureaux/{{ bureau }}?projets=" + projects;
+        window.location.href = url;
+        document.getElementById("projectFilter").innerText = projects.join(' & ');
+    }
+
+    function selectIntervenant() {
+        var ele=document.getElementsByName('intervenant');
+        for(var i=0; i<ele.length; i++){
+            if(ele[i].type === 'checkbox' && ele[i].checked ){
+
+                if(!intervenants.includes(ele[i].value) ){
+                    intervenants.push(ele[i].value);
+                }
+            }else {
+                intervenants = intervenants.filter(e=> e !== ele[i].value);
+            }
+        }
+    }
+    function applyFilterIntervenant(){
+        var collection = globalBureaux;
+        //Si pas de filtre
+        if(intervenants.length === 0){
+            for (let i = 0; i < collection.length; i++) {
+                collection[i].style.display = "revert";
+                document.getElementById("intervenant").style.display = "none";
+                document.getElementById("intervenantFilter").style.display = "none";
+
+            }
+            return ;
+        }
+        //Pour supprimer un filtre
+        for (let i = 0; i < collection.length; i++) {
+            collection[i].style.display = "revert";
+            document.getElementById("intervenant").style.display = "none";
+        }
+        //Appliquer le filtre
+        for (let i = 0; i < collection.length; i++) {
+
+            if(!intervenants.includes(collection[i].children[3].innerText)){
+                collection[i].style.display = "none";
+            }else {
+                collection[i].style.display = "revert";
+            }
+        }
+        var url = "/bureaux/{{ bureau }}?intervenants=" + intervenants;
+        window.location.href = url;
+        document.getElementById("intervenant").style.display = "revert";
+        document.getElementById("intervenantFilter").innerText = intervenants.join(' & ');
+
+    }
+
+    function selectPoles() {
+        var ele=document.getElementsByName('pole');
+        for(var i=0; i<ele.length; i++){
+            if(ele[i].type === 'checkbox' && ele[i].checked ){
+                if(!polesParam.includes(ele[i].value) ){
+                    polesParam.push(ele[i].value);
+                }
+            }else {
+                polesParam = polesParam.filter(e=> e !== ele[i].value);
+            }
+        }
+    }
+    function applyFilterPoles(){
+        var collection = globalBureaux;
+        //Si pas de filtre
+        if(polesParam.length === 0){
+            for (let i = 0; i < collection.length; i++) {
+                collection[i].style.display = "revert";
+                document.getElementById("pole").style.display = "none";
+                document.getElementById("poleFilter").style.display = "none";
+
+            }
+            return ;
+        }
+        //Pour supprimer un filtre
+        for (let i = 0; i < collection.length; i++) {
+            collection[i].style.display = "revert";
+            document.getElementById("pole").style.display = "none";
+            document.getElementById("poleFilter").style.display = "none";
+
+        }
+        //Appliquer le filtre
+        for (let i = 0; i < collection.length; i++) {
+            if(!polesParam.includes(collection[i].children[0].innerText)){
+                collection[i].style.display = "none";
+            }else {
+                collection[i].style.display = "revert";
+            }
+        }
+        document.getElementById("pole").style.display = "revert";
+        document.getElementById("poleFilter").style.display = "revert";
+        var url = "/bureaux/{{ bureau }}?poles=" + polesParam;
+        console.log(url);
+        window.location.href = url;
+        document.getElementById("poleFilter").innerText = polesParam.join(' & ');
+
+
+    }
+
+    // show less or more details "activité" column
+    $(document).ready(function() {
+        var showChar = 100;
+        var ellipsestext = "...";
+        var moretext = "plus";
+        var lesstext = "moins";
+        $('.more').each(function() {
+            var content = $(this).html();
+            if(content.length > showChar) {
+                var c = content.substring(0, showChar);
+                var h = content.substring(showChar-1, content.length);
+                var html = c + '<span class="moreellipses">' + ellipsestext+ '&nbsp;</span><span class="morecontent"><span>' + h + '</span>&nbsp;&nbsp;<a href="" class="morelink">' + moretext + '</a></span>';
+
+                $(this).html(html);
+            }
+
+        });
+
+        $(".morelink").click(function(){
+            if($(this).hasClass("less")) {
+                $(this).removeClass("less");
+                $(this).html(moretext);
+            } else {
+                $(this).addClass("less");
+                $(this).html(lesstext);
+            }
+            $(this).parent().prev().toggle();
+            $(this).prev().toggle();
+            return false;
+        });
+
+    });
+    function addBookmark(url, title){
+        if (!url) {url = window.location}
+        if (!title) {title = document.title}
+        var browser=navigator.userAgent.toLowerCase();
+        if (window.sidebar) { // Mozilla, Firefox, Netscape
+            window.sidebar.addPanel(title, url,"");
+        } else if( window.external) { // IE or chrome
+            if (browser.indexOf('chrome')==-1){ // ie
+                window.external.AddFavorite( url, title);
+            } else { // chrome
+                alert('Please Press CTRL+D (or Command+D for macs) to bookmark this page');
+            }
+        }
+        else if(window.opera && window.print) { // Opera - automatically adds to sidebar if rel=sidebar in the tag
+            return true;
+        }
+        else if (browser.indexOf('konqueror')!=-1) { // Konqueror
+            alert('Please press CTRL+B to bookmark this page.');
+        }
+        else if (browser.indexOf('webkit')!=-1){ // safari
+            alert('Please press CTRL+B (or Command+D for macs) to bookmark this page.');
+        } else {
+            alert('Your browser cannot add bookmarks using this link. Please add this link manually.')
+        }
+    }
+
+</script>
+
+</body>
+</html>
