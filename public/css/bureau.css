@@ -1,0 +1,63 @@
+body{
+    background-color: white;
+}
+.textColor{
+    font-size: xx-large !important;
+    color: darkblue !important;
+}
+.splitTable {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count:2;
+    column-fill: balance;
+    column-gap: 30px;
+    column-fill: auto;
+    column-rule: 3px outset black;
+    border: 1px solid  #d1d1d159;
+    padding:10px 0 ;
+}
+tr {
+    break-inside: avoid;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+.row{
+    width: 100% !important;
+
+}
+.shadow {
+    box-shadow: 0 2px 2px -2px gray;
+    height: 10%;
+    color: white;
+    padding:0;
+}
+/* define a fixed width for the entire menu */
+.navigation {
+    margin-left: 1%;
+    width: 300px;
+    height: auto;
+    background-color: #d1d1d159;
+
+}
+
+/* reset our lists to remove bullet points and padding */
+.mainmenu {
+    list-style: none;
+    padding: 20px ;
+    margin: 0;
+}
+
+/* make ALL links (main and submenu) have padding and background color */
+.mainmenu a {
+    display: block;
+    text-decoration: none;
+    padding: 10px;
+    color: #000;
+}
+
+/* add hover behaviour */
+.mainmenu a:hover {
+    background-color: #C5C5C5;
+}

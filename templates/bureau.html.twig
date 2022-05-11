@@ -2,76 +2,70 @@
 <html>
 
 <head>
-    <!-- CSS only -->
-    <!-- JavaScript Bundle with Popper -->
+    <!-- CSS  -->
+    <link rel="stylesheet" href="{{ asset('css/bureau.css') }}">
+
+    <!-- JavaScript  -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-    <link rel="stylesheet" href="project.css">
-
-    <style>
-    div.splitTable {
-        -webkit-column-count: 2;
-        -moz-column-count: 2;
-        column-count:2;
-        column-fill: balance;
-        column-gap: 30px;
-        column-fill: auto;
-        column-rule: 3px outset black;
-        border: 1px solid grey;
-        padding:10px 0 ;
-    }
-    tr {
-        break-inside: avoid;
-    }
-    a{
-        text-decoration: none;
-        color: black;
-    }
-</style>
 </head>
 <body>
-<div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#"> Reporting hebdomadaire du CAT destiné aux MOE </a>
-    </nav>
-</div>
-<div class="col-xs-8 splitTable">
-    <table class="table table-hover">
-        <thead class="thead-light">
-          <tr >
-              <th scope="col">  <div class="btn-group" style="width: -webkit-fill-available;text-align: -webkit-right;">
-                      <button type="button" class="btn btn-danger"> Bureau </button>
-                      <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" style="text-align: -webkit-right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <span class="sr-only"></span>
-                      </button>
-                      <div class="dropdown-menu" onchange="selectBureau();">
-                              {% for value in values %}
-                                 <input type="checkbox" class="custom-control-input checkbox" name="bureau"  value="{{  value.val  }}">
-                                 <label class="custom-control-label" >{{ value.val }}</label>
-                              {% endfor %}
-                          <button type="button" class="btn btn-danger" onclick="doFilter()">
-                              Appliquer
-                          </button>
-                      </div>
-                  </div>
-              </th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for value in values %}
-            <tr class="ligne">
-                <td style="display: flex;">
-             <a class="bureauVal" href="{{ path('get_projects_by_bureau', {bureau: value.val }) }}">{{ value.val }}</a>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
+    <div class="row m-0 p-3 shadow" style=" background-color: #d1d1d159;">
+        <div class="col-3">
+            <img src="{{ asset('repFrance.svg') }}" width="130" height="80" alt="">
+        </div>
+        <div class="col-6 d-flex align-items-center justify-content-center textColor">
+            <p>Reporting hebdomadaire du CAT destiné aux MOE </p>
+        </div>
+        <div class="col-3 d-flex justify-content-end">
+            <img src="{{ asset('DGFiP.png') }}" width="200" height="100" alt="">
+        </div>
+    </div>
+    <div class="row p-3">
+        <nav class="navigation col-2 shadow">
+            <ul class="mainmenu">
+                <li><a href="{{ path('get_bureaux') }}"> Bureau </a></li>
+                <li><a href=""> Historique </a></li>
+            </ul>
+        </nav>
+
+        <div class="col splitTable shadow " style="margin-left: 1%">
+            <table class="table table-hover ">
+                <thead class="thead-light">
+                <tr >
+                    <th scope="col">  <div class="btn-group" style="width: -webkit-fill-available;text-align: -webkit-right;">
+                            <button type="button" class="btn btn-danger"> Bureau </button>
+                            <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" style="text-align: -webkit-right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="sr-only"></span>
+                            </button>
+                            <div class="dropdown-menu" onchange="selectBureau();">
+                                {% for value in values %}
+                                    <input type="checkbox" class="custom-control-input checkbox" name="bureau"  value="{{  value.val  }}">
+                                    <label class="custom-control-label" >{{ value.val }}</label>
+                                {% endfor %}
+                                <button type="button" class="btn btn-danger" onclick="doFilter()">
+                                    Appliquer
+                                </button>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for value in values %}
+                    <tr class="ligne">
+                        <td style="display: flex;">
+                            <a class="bureauVal" href="{{ path('get_projects_by_bureau', {bureau: value.val }) }}">{{ value.val }}</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+ </div>
 <script type="text/javascript">
     var bureaux = [];
     var globalBureaux = document.getElementsByClassName('ligne');

@@ -53,7 +53,6 @@ class getProjectController extends AbstractController
      *     name="get_projects_by_bureau",
      *     path="/bureaux/{bureau}",
      *     methods={"GET"},
-     *     requirements={"bureau"=".+"}
      * )
      * @param Request $request
      * @return Response
@@ -122,7 +121,7 @@ class getProjectController extends AbstractController
     /**
      * @Route(
      *     name="detail_project",
-     *     path="/bureaux/{bureau}/Projets/{projet}",
+     *     path="/bureaux/{bureau}/projets/{projet}",
      *     methods={"GET"}
      * )
      * @param Request $request
@@ -137,7 +136,7 @@ class getProjectController extends AbstractController
         $filtredTab = $this->filterService->filtreByOneProject($vals,$projet);
         $response = new Response(json_encode($filtredTab));
         $response->headers->set('Content-Type', 'application/json');
-        return $this->render('detailProject.html.twig',['project' =>  $filtredTab,'bureau' =>$bureau ]);
+        return $this->render('detailProject.html.twig',['project' =>  $filtredTab,'bureau' =>$bureau, 'projet' =>$projet ]);
 
     }
 }

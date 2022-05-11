@@ -28,7 +28,7 @@ class getValueController extends AbstractController
     }
     /**
      * @Route(
-     *     name="get_repport",
+     *     name="get_bureaux",
      *     path="/bureaux",
      *     methods={"GET"}
      * )
