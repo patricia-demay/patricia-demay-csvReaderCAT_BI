@@ -19,9 +19,9 @@ body{
 tr {
     break-inside: avoid;
 }
-a{
-    text-decoration: none;
-    color: black;
+.bureauVal{
+    text-decoration: none !important;
+    color: black !important;
 }
 .row{
     width: 100% !important;

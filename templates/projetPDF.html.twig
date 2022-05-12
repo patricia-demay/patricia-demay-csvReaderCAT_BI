@@ -10,55 +10,41 @@
 <body>
 
 <div class="row m-0 p-3 shadow" style=" background-color: #d1d1d159;">
-    <div class="col-3">
-        <img src="{{ asset('repFrance.svg') }}" width="130" height="80" alt="">
-    </div>
+
     <div class="col-6 d-flex align-items-center justify-content-center textColor">
         <p>Reporting hebdomadaire du CAT destiné aux MOE </p>
     </div>
-    <div class="col-3 d-flex justify-content-end">
-        <img src="{{ asset('DGFiP.png') }}" width="200" height="100" alt="">
-    </div>
+
 </div>
 <div class="row p-3">
-    <nav class="navigation col-2 shadow">
-        <ul class="mainmenu">
-            <li><a href="{{ path('get_bureaux') }}"> Bureau </a></li>
-            <li><a href=""> Historique </a></li>
-        </ul>
-    </nav>
 
     <div class="col shadow " style="margin-left: 1%">
         <div class="projet-box p-5">
             <form>
                 <div class="projet-detail-box">
-                    <label for="officeName">Bureau</label>
-                        <p style=" color: #0a0a0a ; border-bottom: 1px solid #0a0a0a;"> {{ bureau }} </p>
+                    <label style=" font-weight: bold; " for="officeName">Bureau</label>
+                    <p style=" color: #0a0a0a ; border-bottom: 1px solid #0a0a0a;"> {{ bureau }} </p>
                 </div>
                 <div class="projet-detail-box">
-                    <label for="projectName">Nom du projet</label>
+                    <label  style=" font-weight: bold; "  for="projectName">Nom du projet</label>
                     <p style=" color: #0a0a0a ; border-bottom: 1px solid #0a0a0a;">{{ project.Nomduprojet}}</p>
                 </div>
                 <div class="projet-detail-box">
-                    <label for="activite" >Activités </label>
-                    <textarea id="activite" data-resizable="true" type="text" placeholder=" " disabled> {{ project['Activites']}}</textarea>
-                </div>
+                    <label for="activite"  style=" font-weight: bold; "  >Activités </label>
+                    <p style=" color: #0a0a0a ; border-bottom: 1px solid #0a0a0a;"> {{ project['Activites']}} </p>
+               </div>
                 <div class="projet-detail-box">
-                    <label for="DateprévueLEI" >Date prévue LEI = Entrée en INTEX</label>
+                    <label for="DateprévueLEI"  style=" font-weight: bold; "  >Date prévue LEI = Entrée en INTEX</label>
                     <p style=" color: #0a0a0a ; border-bottom: 1px solid #0a0a0a;">{{ project['LEI']}}</p>
                 </div>
                 <div class="projet-detail-box">
-                    <label for="IntervenantsCAT" >Intervenants CAT</label>
+                    <label for="IntervenantsCAT"  style=" font-weight: bold; "  >Intervenants CAT</label>
                     <p style=" color: #0a0a0a ; border-bottom: 1px solid #0a0a0a;">{{ project.IntervenantsCAT}}</p>
                 </div>
                 <div class="projet-detail-box">
-                    <label for="Pole" >Pôle</label>
+                    <label for="Pole"  style=" font-weight: bold; "  >Pôle</label>
                     <p style=" color: #0a0a0a ; border-bottom: 1px solid #0a0a0a;">{{project['Pole']}}</p>
                 </div>
-
-             <a class="btn btn-primary" href="{{ path('export_pdf', {bureau: bureau , projet: project.Nomduprojet }) }}">Eporter en PDF </a>
-
-
             </form>
         </div>
     </div>

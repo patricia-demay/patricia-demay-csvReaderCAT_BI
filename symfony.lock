@@ -74,6 +74,9 @@
     "doctrine/sql-formatter": {
         "version": "1.1.2"
     },
+    "dompdf/dompdf": {
+        "version": "v1.2.2"
+    },
     "ezyang/htmlpurifier": {
         "version": "v4.14.0"
     },
@@ -92,11 +95,29 @@
     "markbaker/matrix": {
         "version": "3.0.0"
     },
+    "mpdf/mpdf": {
+        "version": "v8.1.1"
+    },
+    "myclabs/deep-copy": {
+        "version": "1.11.0"
+    },
     "myclabs/php-enum": {
         "version": "1.8.3"
     },
     "nikic/php-parser": {
         "version": "v4.13.2"
+    },
+    "paragonie/random_compat": {
+        "version": "v9.99.100"
+    },
+    "phenx/php-font-lib": {
+        "version": "0.5.4"
+    },
+    "phenx/php-svg-lib": {
+        "version": "0.4.1"
+    },
+    "php-http/message-factory": {
+        "version": "v1.0.2"
     },
     "phpoffice/phpspreadsheet": {
         "version": "1.22.0"
@@ -124,6 +145,12 @@
     },
     "psr/simple-cache": {
         "version": "1.0.1"
+    },
+    "sabberworm/php-css-parser": {
+        "version": "8.4.0"
+    },
+    "setasign/fpdi": {
+        "version": "v2.3.6"
     },
     "symfony/asset": {
         "version": "v6.0.7"
