@@ -33,7 +33,6 @@ class FilterService{
        return $filtredTab;
     }
     function filtreByPole($tab,$poles){
-
         $poles = explode( ',', $poles );
         $filtredTab = array();
         foreach ($tab as $ligne){

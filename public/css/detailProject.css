@@ -79,26 +79,76 @@ tr {
 
 }
 
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
 /* reset our lists to remove bullet points and padding */
 .mainmenu {
     list-style: none;
     padding: 20px ;
     margin: 0;
 }
-
+.mainmenu li{
+    flex-direction: row;
+    align-items: baseline;
+    align-content: flex-start;
+    flex-wrap: wrap;
+}
+/* reset our lists to remove bullet points and padding */
+.mainmenu, .submenu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
 /* make ALL links (main and submenu) have padding and background color */
 .mainmenu a {
-    display: block;
     text-decoration: none;
     padding: 10px;
     color: #000;
+    font-size: x-large;
 }
 
+
 /* add hover behaviour */
-.mainmenu a:hover {
+.mainmenu li:hover {
     background-color: #C5C5C5;
 }
-a{
+
+.mainmenu li:hover .submenu {
+    display: block;
+    max-height: 200px;
+}
+
+/* this is the initial state of all submenus.
+  we set it to max-height: 0, and hide the overflowed content.
+*/
+.submenu {
+    overflow: hidden;
+    max-height: 0;
+    -webkit-transition: all 0.5s ease-out;
+    width: 100%;
+}
+
+
+
+.submenu li {
+    background-color: #999;
+}
+
+/* hover behaviour for links inside .submenu */
+.submenu li:hover  {
+    background-color: #666;
+}
+input{
     text-decoration: none;
-    color: black;
+    padding: 10px;
+    color: #000;
+    font-size: x-large;
+}
+/* hover behaviour for links inside .submenu */
+input#idBtn1:hover {
+    background-color: #666 !important;
 }

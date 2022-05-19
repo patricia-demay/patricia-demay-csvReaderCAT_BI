@@ -23,8 +23,14 @@
 <div class="row p-3">
     <nav class="navigation col-2 shadow">
         <ul class="mainmenu">
-            <li><a href="{{ path('get_bureaux') }}"> Bureau </a></li>
-            <li><a href=""> Historique </a></li>
+            <li class="d-flex" style="flex-direction: row;align-items: baseline;">
+                <img src="{{ asset('travail.png') }}" width="30" height="20" alt="" >
+                <a href="{{ path('get_bureaux') }}"> Bureau </a>
+            </li>
+            <li class="d-flex" style="flex-direction: row;align-items: baseline;">
+                <img src="{{ asset('archiver.png') }}" width="30" height="20" alt="">
+                <a href=""> Historique </a>
+            </li>
         </ul>
     </nav>
 

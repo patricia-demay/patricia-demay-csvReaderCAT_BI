@@ -27,8 +27,24 @@
     <div class="row p-3">
         <nav class="navigation col-2 shadow">
             <ul class="mainmenu">
-                <li><a href="{{ path('get_bureaux') }}"> Bureau </a></li>
-                <li><a href=""> Historique </a></li>
+                <li class="d-flex" style="flex-direction: row;align-items: baseline;">
+                    <img src="{{ asset('travail.png') }}" width="30" height="20" alt="" >
+                    <a href="{{ path('get_bureaux') }}"> Bureau </a>
+                </li>
+                <li class="d-flex" style="flex-direction: row;align-items: baseline;">
+                    <img src="{{ asset('archiver.png') }}" width="30" height="20" alt="">
+                    <a href=""> Historique </a>
+                </li>
+                <li class="d-flex" style="flex-direction: row;align-items: baseline;">
+                    <img src="{{ asset('action.png') }}" width="30" height="20" alt="">
+                    <a href="">Action</a>
+                    <ul class="submenu">
+                        <li><input id="idBtn1" type="button" onclick="addBookmark('https://buffernow.com','buffer now');"
+                                   value="Marquer cette page "
+                                   style="position: initial; background-color: #999; border:none"/>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
 
@@ -37,8 +53,8 @@
                 <thead class="thead-light">
                 <tr >
                     <th scope="col">  <div class="btn-group" style="width: -webkit-fill-available;text-align: -webkit-right;">
-                            <button type="button" class="btn btn-danger"> Bureau </button>
-                            <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" style="text-align: -webkit-right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button type="button"class="btn btn-primary"> Bureau </button>
+                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" style="text-align: -webkit-right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="sr-only"></span>
                             </button>
                             <div class="dropdown-menu" onchange="selectBureau();">
@@ -46,7 +62,7 @@
                                     <input type="checkbox" class="custom-control-input checkbox" name="bureau"  value="{{  value.val  }}">
                                     <label class="custom-control-label" >{{ value.val }}</label>
                                 {% endfor %}
-                                <button type="button" class="btn btn-danger" onclick="doFilter()">
+                                <button type="button" class="btn btn-primary" onclick="doFilter()">
                                     Appliquer
                                 </button>
                             </div>

@@ -39,13 +39,9 @@ class getProjectController extends AbstractController
         $name ="Nom du projet" ;
         $pjcts = array("AAI - DECOMMISSIONNEMENT","ACAP v2 FQE");
         $vals = $this->valeurRepository->findProjectBy($pjcts,$name);
-
-
         $response = new Response(json_encode($vals));
         $response->headers->set('Content-Type', 'application/json');
-        //var_dump($response->getContent());
         return $response;
-
 
     }
     /**

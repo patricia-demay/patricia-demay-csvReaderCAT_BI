@@ -10,24 +10,45 @@
 <body>
 <div class="row m-0 p-3 shadow" style=" background-color: #d1d1d159;">
     <div class="col-3">
-        <img src="{{ asset('repFrance.svg') }}" width="130" height="80" alt="">
+        <img src="{{ asset('repFrance.svg') }}" width="160" height="100" alt="">
     </div>
-    <div class="col-6 d-flex align-items-center justify-content-center textColor">
+    <div class="col-6 d-flex align-items-center justify-content-center  textColor" style="flex-direction: column">
         <p>Reporting hebdomadaire du CAT destiné aux MOE </p>
-        Filtre : bureau = {{ bureau }}
+        <p style="color: dimgray;font-size: smaller;"> Filtre : bureau = {{ bureau }} </p>
+
         <span id="project" style="display: none"> & projet =  </span> <span id="projectFilter">  </span>
         <span id="pole" style="display: none"> & pole =  </span> <span id="poleFilter">  </span>
         <span id="intervenant" style="display: none"> & intervenantCat =  </span> <span id="intervenantFilter">  </span>
     </div>
     <div class="col-3 d-flex justify-content-end">
-        <img src="{{ asset('DGFiP.png') }}" width="200" height="100" alt="">
+        <img src="{{ asset('DGFiP.png') }}" width="200" height="110" alt="">
     </div>
 </div>
 <div class="row p-3">
     <nav class="navigation col-2 shadow">
         <ul class="mainmenu">
-            <li><a href="{{ path('get_bureaux') }}"> Bureau </a></li>
-            <li><a href=""> Historique </a></li>
+            <li class="d-flex" style="flex-direction: row;align-items: baseline;">
+                <img src="{{ asset('travail.png') }}" width="30" height="20" alt="" >
+                <a href="{{ path('get_bureaux') }}"> Bureau </a>
+            </li>
+            <li class="d-flex" style="flex-direction: row;align-items: baseline;">
+                <img src="{{ asset('archiver.png') }}" width="30" height="20" alt="">
+                <a href=""> Historique </a>
+            </li>
+            <li class="d-flex" style="flex-direction: row;align-items: baseline;">
+                <img src="{{ asset('action.png') }}" width="30" height="20" alt="">
+                <a href="">Action</a>
+                <ul class="submenu">
+                    <li><input id="idBtn1" type="button" onclick="addBookmark('https://buffernow.com','buffer now');"
+                               value="Marquer cette page "
+                               style="position: initial; background-color: #999; border:none"/>
+                    </li>
+                    <li> <input id="idBtn2" type="button" onclick="exportCSV()"
+                                value="Exporter en CSV "
+                                style="position: initial; background-color: #999; border:none"/>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </nav>
 
@@ -38,16 +59,16 @@
         <tr>
             <th class="col-4"> 
              <div class="btn-group" style="width: -webkit-fill-available;text-align: -webkit-right;">
-                    <button type="button" class="btn btn-danger" style="min-inline-size: max-content;">Nom du projet</button>
-                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" style="text-align: -webkit-right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-primary" style="min-inline-size: max-content;">Nom du projet</button>
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" style="text-align: -webkit-right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="sr-only"></span>
                     </button>
                     <div class="dropdown-menu" onchange="selectProjects();">
-                        {% for project in projects %}
+                        {% for project in projects|sort %}
                         <input type="checkbox" class="custom-control-input checkbox" name="project" value="{{ project }}">
                         <label class="custom-control-label" >{{ project }}</label>
                         {% endfor %}
-                        <button type="button" class="btn btn-danger" onclick="applyFilterProjet()">
+                        <button type="button" class="btn btn-primary" onclick="applyFilterProjet()">
                             Appliquer
                         </button>
                     </div>
@@ -55,30 +76,31 @@
             </th>
             <th class="col-6">  
                 <div class="btn-group" style="width: -webkit-fill-available;text-align: -webkit-right;">
-                    <button type="button" class="btn btn-danger" style="min-inline-size: max-content;">Activité en cours</button>
+                    <button type="button" class="btn btn-primary" style="min-inline-size: max-content;">Activité en cours</button>
                 </div>
             </th>
             <th class="col-6">  
                 <div class="btn-group" style="width: -webkit-fill-available;text-align: -webkit-right;">
-                <button type="button" class="btn btn-danger" style="min-inline-size: max-content;">DateprévueLEI = EntréeenINTEX</button>
+                <button type="button" class="btn btn-primary" style="min-inline-size: max-content;">DateprévueLEI = EntréeenINTEX</button>
                 </div>
             </th>
             <th class="col-6">
                 <div class="btn-group" style="width: -webkit-fill-available;text-align: -webkit-right;">
-                    <button type="button" class="btn btn-danger" style="min-inline-size: max-content;">Date MEP</button>
+                    <button type="button" class="btn btn-primary" style="min-inline-size: max-content;">Date MEP</button>
                 </div>
             </th>
-            <th class="col-6">  <div class="btn-group" style="width: -webkit-fill-available;text-align: -webkit-right;">
-                    <button type="button" class="btn btn-danger" style="min-inline-size: max-content;">Intervenants CAT</button>
-                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" style="text-align: -webkit-right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <th class="col-6">
+                <div class="btn-group" style="width: -webkit-fill-available;text-align: -webkit-right;">
+                    <button type="button" class="btn btn-primary" style="min-inline-size: max-content;">Intervenants CAT</button>
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" style="text-align: -webkit-right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="sr-only"></span>
                     </button>
                     <div class="dropdown-menu" onchange="selectIntervenant();">
-                        {% for intervenat in intervenats %}
+                        {% for intervenat in intervenats|sort %}
                             <input type="checkbox" class="custom-control-input checkbox" name="intervenant" value="{{ intervenat }}">
                             <label class="custom-control-label" >{{ intervenat }}</label>
                         {% endfor %}
-                        <button type="button" class="btn btn-danger" onclick="applyFilterIntervenant()">
+                        <button type="button" class="btn btn-primary" onclick="applyFilterIntervenant()">
                             Appliquer
                         </button>
 
@@ -86,16 +108,16 @@
                 </div>
             </th>
             <th class="col-6">  <div class="btn-group" style="width: -webkit-fill-available;text-align: -webkit-right;">
-                    <button type="button" class="btn btn-danger" style="min-inline-size: max-content;">Pôle</button>
-                    <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" style="text-align: -webkit-right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-primary" style="min-inline-size: max-content;">Pôle</button>
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" style="text-align: -webkit-right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="sr-only"></span>
                     </button>
                     <div class="dropdown-menu" onchange="selectPoles();">
-                        {% for pole in poles %}
+                        {% for pole in poles|sort  %}
                             <input type="checkbox" class="custom-control-input checkbox" name="pole" value="{{ pole }}">
                             <label class="custom-control-label poleCheckBox " >{{ pole }}</label>
                         {% endfor %}
-                        <button type="button" class="btn btn-danger" onclick="applyFilterPoles()">
+                        <button type="button" class="btn btn-primary" onclick="applyFilterPoles()">
                             Appliquer
                         </button>
                     </div>
@@ -129,11 +151,7 @@
         </tr>
         {% endfor %}
         </tbody>
-
     </table>
-        <input type="button" class="btn btn-outline-primary" value="marquer une page"
-               onclick="addBookmark('https://buffernow.com','buffer now');" style="position: initial;"/>
-
     </div>
 
 </div>
@@ -151,7 +169,7 @@
     var intervenants = [];
     var polesParam = [];
     var globalBureaux = document.getElementsByClassName('ligne');
-
+    var params = "";
     function selectProjects() {
         var ele=document.getElementsByName('project');
         for(var i=0; i<ele.length; i++){
@@ -287,7 +305,6 @@
         document.getElementById("pole").style.display = "revert";
         document.getElementById("poleFilter").style.display = "revert";
         var url = "/bureaux/{{ bureau }}?poles=" + polesParam;
-        console.log(url);
         window.location.href = url,true;
         document.getElementById("poleFilter").innerText = polesParam.join(' & ');
 
@@ -350,6 +367,12 @@
         } else {
             alert("Votre navigateur ne peut pas marquer cette page .Merci d'\ ajouter ce lien manuellement.")
         }
+    }
+
+    function exportCSV(){
+        params = window.location.search;
+        var url = "/exportCSV/{{ bureau }} "+ params ;
+        window.location.href = url,true;;
     }
 
 </script>
