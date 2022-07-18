@@ -18,12 +18,18 @@ class getProjectController extends AbstractController
     private $em;
     private $valeurRepository;
     private $filterService;
+    private $columnRepository;
 
-    public function __construct(ManagerRegistry $doctrine,ValeurRepository $valeurRepository,FilterService $filterService)
+    public function __construct(ManagerRegistry $doctrine,
+                                ValeurRepository $valeurRepository,
+                                FilterService $filterService,
+                                ColumnRepository $columnRepository
+    )
     {
-        $this->em = $doctrine->getManager('default');
+        $this->em               = $doctrine->getManager('default');
         $this->valeurRepository = $valeurRepository;
-        $this->filterService = $filterService;
+        $this->filterService    = $filterService;
+        $this->columnRepository = $columnRepository;
     }
     /**
      * @Route(
@@ -68,6 +74,9 @@ class getProjectController extends AbstractController
         $intervenats          = $this->filterService->dedoublonneTab($intervenats);
         $projects             = $this->filterService->extractColValue($vals,'Nomduprojet');
         $projects             = $this->filterService->dedoublonneTab($projects);
+        $headerNames = $this->columnRepository->getheaderName();
+        array_shift($headerNames );
+        var_dump( $headerNames );
         if($projets !== null ){
             $filtredTab = $this->filterService->filtreByProject($vals,$projets);
             return $this->render('project.html.twig',
@@ -76,7 +85,8 @@ class getProjectController extends AbstractController
                 'projets'     => $projets,
                 'projects'    => $projects,
                 'poles'       => $poles,
-                'intervenats' => $intervenats]);
+                'intervenats' => $intervenats,
+                'headerNames'     => $headerNames ]);
 
         }
         if($polesParam !== null ){
@@ -87,18 +97,20 @@ class getProjectController extends AbstractController
                  'projets'     => $projets,
                  'projects'    => $projects,
                  'poles'       => $poles,
-                 'intervenats' => $intervenats]);
+                 'intervenats' => $intervenats,
+                 'headerNames'     => $headerNames ]);
 
         }
         if($intervenantsParam !== null ){
             $filtredTab = $this->filterService->filtreByIntervenant($vals,$intervenantsParam);
             return $this->render('project.html.twig',
                 ['values'      => $filtredTab,
-                    'bureau'      => $bureau,
-                    'projets'     => $projets,
-                    'projects'    => $projects,
-                    'poles'       => $poles,
-                    'intervenats' => $intervenats]);
+                'bureau'      => $bureau,
+                'projets'     => $projets,
+                'projects'    => $projects,
+                'poles'       => $poles,
+                'intervenats' => $intervenats,
+                'headerNames'     => $headerNames ]);
 
         }
         $response = new Response(json_encode($vals));
@@ -109,7 +121,8 @@ class getProjectController extends AbstractController
              'poles'       => $poles,
              'projects'    => $projects,
              'projets'     => $projets,
-             'intervenats' => $intervenats]);
+             'intervenats' => $intervenats,
+             'headerNames'     => $headerNames ]);
 
     }
 

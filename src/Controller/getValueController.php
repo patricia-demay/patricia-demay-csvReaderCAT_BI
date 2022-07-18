@@ -7,6 +7,7 @@ use App\Repository\ValeurRepository;
 use App\Service\FilterService;
 use App\Service\ImportService;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Array_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,16 +38,18 @@ class getValueController extends AbstractController
      */
     public function __invoke(Request $request): Response
     {
-        $val = $this->valeurRepository->findByOrderCol(0);
-        //var_dump($val);
-        $bureaux = $request->get('bureau');
+        $val      = $this->valeurRepository->findByOrderCol(0);
+        $bureaux  = $request->get('bureau');
+        $newArray = array ();
+        foreach ($val as $key => $value) {
+            array_push($newArray,$val[$key][0]);
+        }
         if($bureaux !== null ){
-
-            $val = $this->filterService->filtreByBureau($val,$bureaux);
-            return $this->render('bureau.html.twig',['values' => $val]);
+            $newArray = $this->filterService->filtreByBureau($newArray,$bureaux);
+            return $this->render('bureau.html.twig',['values' => $newArray]);
 
         }
-        return $this->render('bureau.html.twig',['values' => $val]);
+        return $this->render('bureau.html.twig',['values' => $newArray]);
 
     }
 }

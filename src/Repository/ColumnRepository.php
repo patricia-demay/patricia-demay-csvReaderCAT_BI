@@ -72,5 +72,11 @@ class ColumnRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-
+    public function getheaderName()
+    {
+        return $this->createQueryBuilder('c')
+            ->select('c.headerName')
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -53,21 +53,22 @@ class ValeurRepository extends ServiceEntityRepository
 
     // /**
     //  * @return Valeur[] Returns an array of Valeur objects
-    // projects version draft personne
     //  */
 
     public function findByOrderCol($valeur)
     {
         return $this->createQueryBuilder('v')
-            ->select('v')
+            ->select('v,max(file.dateImport) AS maxDate')
             ->innerJoin('v.col','col')
+            ->innerJoin('v.entry','entry')
+            ->innerJoin('entry.file','file')
             ->where('col.ordre = :val')
             ->setParameter('val', $valeur)
             ->distinct(true)
             ->groupBy('v.val')
+            ->orderBy('maxDate', 'DESC')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
 
