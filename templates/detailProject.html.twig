@@ -43,11 +43,11 @@
                 </div>
                 <div class="projet-detail-box">
                     <label for="projectName">Nom du projet</label>
-                    <p style=" color: #0a0a0a ; border-bottom: 1px solid #0a0a0a;">{{ project.Nomduprojet}}</p>
+                    <p style=" color: #0a0a0a ; border-bottom: 1px solid #0a0a0a;">{{ project.Projet}}</p>
                 </div>
                 <div class="projet-detail-box">
                     <label for="activite" >Activités </label>
-                    <textarea id="activite" data-resizable="true" type="text" placeholder=" " disabled> {{ project['Activites']}}</textarea>
+                    <textarea id="activite" data-resizable="true" type="text" placeholder=" " disabled> {{ project['Activités']}}</textarea>
                 </div>
                 <div class="projet-detail-box">
                     <label for="DateprévueLEI" >Date prévue LEI = Entrée en INTEX</label>
@@ -55,14 +55,14 @@
                 </div>
                 <div class="projet-detail-box">
                     <label for="IntervenantsCAT" >Intervenants CAT</label>
-                    <p style=" color: #0a0a0a ; border-bottom: 1px solid #0a0a0a;">{{ project.IntervenantsCAT}}</p>
+                    <p style=" color: #0a0a0a ; border-bottom: 1px solid #0a0a0a;">{{ project.Intervenants}}</p>
                 </div>
                 <div class="projet-detail-box">
                     <label for="Pole" >Pôle</label>
-                    <p style=" color: #0a0a0a ; border-bottom: 1px solid #0a0a0a;">{{project['Pole']}}</p>
+                    <p style=" color: #0a0a0a ; border-bottom: 1px solid #0a0a0a;">{{project['Pôle']}}</p>
                 </div>
 
-             <a class="btn btn-primary" href="{{ path('export_pdf', {bureau: bureau , projet: project.Nomduprojet }) }}">Eporter en PDF </a>
+             <a class="btn btn-primary" href="{{ path('export_pdf', {bureau: bureau , projet: project.Projet }) }}">Eporter en PDF </a>
 
 
             </form>

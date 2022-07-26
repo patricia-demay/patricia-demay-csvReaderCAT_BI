@@ -71,7 +71,7 @@ class FilterService{
     function filtreByOneProject($tab,$project){
         $filtredTab = array();
         foreach ($tab as $ligne){
-            if($ligne['Nomduprojet']=== $project){
+            if($ligne['Projet']=== $project){
                 return $ligne;
             }
         }
