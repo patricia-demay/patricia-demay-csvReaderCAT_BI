@@ -37,16 +37,7 @@ class pdfController  extends AbstractController
      */
     public function printPDF(Request $request)
     {
-        $bureau = $request->get('bureau');
-        $projet = $request->get('projet');
 
-
-        $vals = $this->valeurRepository->findProjectByBureau($bureau);
-        $filtredTab = $this->filterService->filtreByOneProject($vals,$projet);
-        //return $this->render('projetPDF.html.twig',['project' =>  $filtredTab,'bureau' =>$bureau, 'projet' =>$projet ]);
-
-
-        // Configure Dompdf according to your needs
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
 
@@ -57,13 +48,9 @@ class pdfController  extends AbstractController
         $bureau = $request->get('bureau');
         $projet = $request->get('projet');
 
-
         $vals = $this->valeurRepository->findProjectByBureau($bureau);
         $filtredTab = $this->filterService->filtreByOneProject($vals,$projet);
-        //return $this->render('projetPDF.html.twig',['project' =>  $filtredTab,'bureau' =>$bureau, 'projet' =>$projet ]);
-
         $html =  $this->renderView('projetPDF.html.twig',['project' =>  $filtredTab,'bureau' =>$bureau, 'projet' =>$projet ]);
-
 
         // Load HTML to Dompdf
         $dompdf->loadHtml($html);
@@ -75,10 +62,10 @@ class pdfController  extends AbstractController
         $dompdf->render();
 
         // Output the generated PDF to Browser (force download)
-        $dompdf->stream("mypdf.pdf", [
+        $dateOfToday = date("Ymd");
+        $dompdf->stream("projet".$dateOfToday.".pdf", [
             "Attachment" => true,'compress'=>1
         ]);
-       // var_dump($dompdf);
         die();
 
     }
