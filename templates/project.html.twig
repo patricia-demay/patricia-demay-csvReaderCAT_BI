@@ -65,10 +65,15 @@
                         <span class="sr-only"></span>
                     </button>
                     <div class="dropdown-menu" onchange="selectProjects();">
+                        {% if projects is iterable %}
                         {% for project in projects|sort %}
                             <input type="checkbox" class="custom-control-input checkbox" name="project" value="{{ project }}">
                             <label class="custom-control-label" >{{ project }}</label>
                         {% endfor %}
+                        {% else %}
+                            <input type="checkbox" class="custom-control-input checkbox" name="project" value="{{ projects }}">
+                            <label class="custom-control-label" >{{ projects }}</label>
+                        {% endif %}
                         <button type="button" class="btn btn-primary" onclick="applyFilterProjet()">
                             Appliquer
                         </button>
@@ -105,10 +110,16 @@
                         <span class="sr-only"></span>
                     </button>
                     <div class="dropdown-menu" onchange="selectPoles();">
+                        {% if poles is iterable %}
                         {% for pole in poles|sort  %}
                             <input type="checkbox" class="custom-control-input checkbox" name="pole" value="{{ pole }}">
                             <label class="custom-control-label poleCheckBox " >{{ pole }}</label>
                         {% endfor %}
+                        {% else %}
+                            <input type="checkbox" class="custom-control-input checkbox" name="pole" value="{{ poles }}">
+                            <label class="custom-control-label poleCheckBox " >{{ poles }}</label>
+                        {% endif %}
+
                         <button type="button" class="btn btn-primary" onclick="applyFilterPoles()">
                             Appliquer
                         </button>

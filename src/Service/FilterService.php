@@ -98,15 +98,27 @@ class FilterService{
         return count($val) > 1 ? $val : array_pop($val);
     }
     function dedoublonneTab($tab){
-         return array_unique($tab);
+        if(is_array($tab)){
+            return array_unique($tab);
+        }
 
     }
 
     function extract($tab){
         $architects= array();
         $integrateurs= array();
-        foreach ($tab as $ligne){
-            $values = explode('Intégrateur :', $ligne);
+        if(is_array($tab)){
+            foreach ($tab as $ligne){
+                $values = explode('Intégrateur :', $ligne);
+                if(count($values)>=2){
+                    array_push($integrateurs ,'Intégrateur :'. $values[1]);
+                }
+                if(!empty($values[0])){
+                    array_push($architects ,$values[0]);
+                }
+            }
+        }else {
+            $values = explode('Intégrateur :', $tab);
             if(count($values)>=2){
                 array_push($integrateurs ,'Intégrateur :'. $values[1]);
             }
