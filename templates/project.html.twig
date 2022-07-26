@@ -14,6 +14,7 @@
     </div>
     <div class="col-6 d-flex align-items-center justify-content-center  textColor" style="flex-direction: column">
         <p>Reporting hebdomadaire du CAT destiné aux MOE </p>
+        <p style="color: dimgray;font-size: smaller;">Reporting Semaine S29 du mercredi 13/07/2022 au mardi 19/07/2022</p>
         <p style="color: dimgray;font-size: smaller;"> Filtre : bureau = {{ bureau }} </p>
 
         <span id="project" style="display: none"> & projet =  </span> <span id="projectFilter">  </span>
@@ -56,19 +57,17 @@
 
     <table class="table table-hover">
         <thead class="thead-light">
-
         <tr>
-            {% for colName in headerNames %}
-            <th class="col-4"> 
-             <div class="btn-group" style="width: -webkit-fill-available;text-align: -webkit-right;">
-                    <button type="button" class="btn btn-primary" style="min-inline-size: max-content;">{{ colName['headerName'] }}</button>
+            <th class="col-4">
+                <div class="btn-group" style="width: -webkit-fill-available;text-align: -webkit-right;">
+                    <button type="button" class="btn btn-primary" style="min-inline-size: max-content;">Nom du projet</button>
                     <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" style="text-align: -webkit-right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="sr-only"></span>
                     </button>
                     <div class="dropdown-menu" onchange="selectProjects();">
                         {% for project in projects|sort %}
-                        <input type="checkbox" class="custom-control-input checkbox" name="project" value="{{ project }}">
-                        <label class="custom-control-label" >{{ project }}</label>
+                            <input type="checkbox" class="custom-control-input checkbox" name="project" value="{{ project }}">
+                            <label class="custom-control-label" >{{ project }}</label>
                         {% endfor %}
                         <button type="button" class="btn btn-primary" onclick="applyFilterProjet()">
                             Appliquer
@@ -76,21 +75,12 @@
                     </div>
                 </div>
             </th>
-            <th class="col-6">  
+            <th class="col-6">
                 <div class="btn-group" style="width: -webkit-fill-available;text-align: -webkit-right;">
                     <button type="button" class="btn btn-primary" style="min-inline-size: max-content;">Activité en cours</button>
                 </div>
             </th>
-            <th class="col-6">  
-                <div class="btn-group" style="width: -webkit-fill-available;text-align: -webkit-right;">
-                <button type="button" class="btn btn-primary" style="min-inline-size: max-content;">DateprévueLEI = EntréeenINTEX</button>
-                </div>
-            </th>
-            <th class="col-6">
-                <div class="btn-group" style="width: -webkit-fill-available;text-align: -webkit-right;">
-                    <button type="button" class="btn btn-primary" style="min-inline-size: max-content;">Date MEP</button>
-                </div>
-            </th>
+
             <th class="col-6">
                 <div class="btn-group" style="width: -webkit-fill-available;text-align: -webkit-right;">
                     <button type="button" class="btn btn-primary" style="min-inline-size: max-content;">Intervenants CAT</button>
@@ -125,7 +115,6 @@
                     </div>
                 </div>
             </th>
-            {% endfor %}
         </tr>
 
 
@@ -134,24 +123,19 @@
         {% for value in values %}
         <tr scope="row" class="ligne">
             <td class="col-2" style="white-space: pre-line">
-                <a  href="{{ path('detail_project', {bureau: bureau , projet: value.Nomduprojet }) }}"> {{ value.Nomduprojet}}</a>
+                <a  href="{{ path('detail_project', {bureau: bureau , projet: value.Projet }) }}"> {{ value.Projet}}</a>
             </td>
             <td class="col-4" >
                 <div class="more" style="white-space: pre-line">
-                    {{ value['Activites']}}
+                    {{ value['Activités']}}
                 </div>
             </td>
-            <td class="col-2" style="white-space: pre-line">
-               {{ value['LEI']}}
-            </td>
-            <td class="col-2" style="white-space: pre-line">
-                {{ value['MEP']}}
-            </td>
+
             <td class="col-3" style="white-space: pre-line" >
-               {{ value.IntervenantsCAT}}
+               {{ value.Intervenants}}
             </td>
             <td class="col-2" style="white-space: pre-line">
-                {{ value['Pole']}}
+                {{ value['Pôle']}}
             </td>
         </tr>
         {% endfor %}

@@ -46,18 +46,19 @@ class ImportController extends AbstractController
         $this->em->persist((object)$file);
         $handle = fopen($filePath, "r");
 
-        $data = fgetcsv($handle,2500,';');
+        $data = fgetcsv($handle,2500,',');
         for ($j=0; $j<count($data); $j++) {
             // recuperation les entetes des colonnes
-            $this->importService->addColumn(utf8_encode($data[$j]),$j);
+
+            $this->importService->addColumn($data[$j],$j);
         }
         $numLigne=1;
-        while (($data = fgetcsv($handle,2500,';')) !== FALSE) {
+        while (($data = fgetcsv($handle,2500,',')) !== FALSE) {
             //parcours de ligne par ligne
             $entry = $this->importService->addEntry($numLigne,$file);
             for ($j=0; $j<count($data); $j++) {
                 // recuperation des valeurs
-               $this->importService->addValue(utf8_encode($data[$j]),$this->rep->findOneBy(array('ordre' => $j)),$entry);
+               $this->importService->addValue($data[$j],$this->rep->findOneBy(array('ordre' => $j)),$entry);
             }
             $numLigne++ ;
         }

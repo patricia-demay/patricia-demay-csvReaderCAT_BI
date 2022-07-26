@@ -26,7 +26,7 @@ class FilterService{
        $projects = explode( ',', $projects );
        $filtredTab = array();
        foreach ($tab as $ligne){
-           if(in_array($ligne['Nomduprojet'], $projects)){
+           if(in_array($ligne['Projet'], $projects)){
                array_push($filtredTab,$ligne);
            }
         }
@@ -36,7 +36,7 @@ class FilterService{
         $poles = explode( ',', $poles );
         $filtredTab = array();
         foreach ($tab as $ligne){
-            if(in_array($ligne['Pole'], $poles)){
+            if(in_array($ligne['Pôle'], $poles)){
                 array_push($filtredTab,$ligne);
             }
         }
@@ -48,7 +48,7 @@ class FilterService{
         $filtredTab = array();
         foreach ($tab as $ligne){
             foreach ( $intervenants as $intervenat){
-                $res = $this->removeSpecialChar($ligne['IntervenantsCAT']);
+                $res = $this->removeSpecialChar($ligne['Intervenants']);
                 $outputString = $this->removeSpace($res);
                 $res1 = $this->removeSpecialChar($intervenat);
                 $outputString1 = $this->removeSpace($res1);
@@ -98,7 +98,6 @@ class FilterService{
         return count($val) > 1 ? $val : array_pop($val);
     }
     function dedoublonneTab($tab){
-
          return array_unique($tab);
 
     }

@@ -67,16 +67,16 @@ class getProjectController extends AbstractController
         $polesParam           = $request->get('poles');
         $intervenantsParam    = $request->get('intervenants');
         $vals                 = $this->valeurRepository->findProjectByBureau($bureau);
-        $poles                = $this->filterService->extractColValue($vals,'Pole');
+        $poles                = $this->filterService->extractColValue($vals,'Pôle');
+
         $poles                = $this->filterService->dedoublonneTab($poles);
-        $intervenats          = $this->filterService->extractColValue($vals,'IntervenantsCAT');
+        $intervenats          = $this->filterService->extractColValue($vals,'Intervenants');
         $intervenats          = $this->filterService->extract($intervenats);
         $intervenats          = $this->filterService->dedoublonneTab($intervenats);
-        $projects             = $this->filterService->extractColValue($vals,'Nomduprojet');
+        $projects             = $this->filterService->extractColValue($vals,'Projet');
         $projects             = $this->filterService->dedoublonneTab($projects);
         $headerNames = $this->columnRepository->getheaderName();
         array_shift($headerNames );
-        var_dump( $headerNames );
         if($projets !== null ){
             $filtredTab = $this->filterService->filtreByProject($vals,$projets);
             return $this->render('project.html.twig',
